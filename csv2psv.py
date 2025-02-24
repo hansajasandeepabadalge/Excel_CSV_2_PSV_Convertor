@@ -18,7 +18,7 @@ if os.path.exists(csv_filepath):
 if os.path.exists(xlsx_filepath):
     workbook = openpyxl.load_workbook(xlsx_filepath)
     sheet = workbook.active
-    with open('output/output.xlsx.psv', 'w', newline='', encoding='utf-8') as outfile:
+    with open('output/output.csv', 'w', newline='', encoding='utf-8') as outfile:
         writer = csv.writer(outfile, delimiter='|')
         for row in sheet.iter_rows(values_only=True):
             writer.writerow(row)
