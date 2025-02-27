@@ -23,7 +23,7 @@ def convert_file():
     documents_folder = os.path.join(os.path.expanduser("~"), "Documents")
     output_folder = os.path.join(documents_folder, "PSV_Files")
     os.makedirs(output_folder, exist_ok=True)
-    output_file = os.path.join(output_folder, os.path.basename(input_file).rsplit('.', 1)[0] + '_converted.csv')
+    output_file = os.path.join(output_folder, os.path.basename(input_file).rsplit('.', 1)[0] + '.csv')
     
     try:
         if input_file.endswith('.csv'):
