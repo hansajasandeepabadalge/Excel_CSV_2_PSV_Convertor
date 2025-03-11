@@ -5,7 +5,7 @@ import csv
 import pandas as pd
 
 def browse_file():
-    file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv"), ("Excel Files", "*.xlsx;*.xls")])
+    file_path = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsx;*.xls"), ("CSV Files", "*.csv")])
     if file_path:
         entry.delete(0, tk.END)
         entry.insert(0, file_path)
