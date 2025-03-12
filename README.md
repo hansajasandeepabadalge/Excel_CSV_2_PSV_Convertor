@@ -1,12 +1,12 @@
 # CSV/Excel to PSV Converter
 
 ## Description
-This is a simple GUI-based application built with Python and Tkinter that allows users to convert CSV and Excel files into pipe-separated value (PSV) files. The converted files are saved in the `Documents/PSV_Files` directory.
+This is a simple GUI-based application built with Python and Tkinter that allows users to convert CSV and Excel files into pipe-separated value (PSV) files. The converted files are saved in the `Output` directory within the same directory as the selected files.
 
 ## Features
 - Supports both `.csv` and `.xlsx/.xls` file formats.
 - Converts data to PSV format (pipe `|` separated values).
-- Automatically creates a `PSV_Files` folder in the `Documents` directory.
+- Automatically creates an `Output` folder in the directory of the selected files.
 - Provides a simple GUI for file selection and conversion.
 
 ## Prerequisites
@@ -28,11 +28,11 @@ pip install pandas
 ## Usage
 1. Run the script:
    ```sh
-   python csv2psv.py
+   python psv.py
    ```
-2. Click the **Browse** button to select a CSV or Excel file.
-3. Click **Convert** to convert the file into PSV format.
-4. The converted file will be saved in `Documents/PSV_Files`.
+2. Click the **Browse** button to select CSV or Excel files.
+3. Click **Convert** to convert the files into PSV format.
+4. The converted files will be saved in the `Output` folder within the same directory as the selected files.
 
 ## Error Handling
 - If no file is selected, an error message will be displayed.
@@ -46,4 +46,3 @@ pip install pandas
 
 ## License
 This project is licensed under the MIT License.
-
