@@ -57,13 +57,11 @@ def convert_files():
     file_path_list = []
     InputListBox.delete(0, tk.END)
 
-# root window
 root = tk.Tk()
 
-# configure the root window
 root.resizable(False, False)
 root.title('PSV v2')
-root.configure(padx=10, pady=10)  # Add padding to the entire window
+root.configure(padx=10, pady=10)
 
 
 BrowseButton = tk.Button(root, text='Browse', command=browse_file)
@@ -93,15 +91,8 @@ def row_3(row):
     BrowseButton.grid(row=row, column=0, columnspan=2, padx=(0,5), pady=(5, 5), sticky="ew")
     ConvertButton.grid(row=row, column=2, columnspan=2, padx=(5,0), pady=(5, 5), sticky="ew")
 
-def row_4(row):
-    StatusLabel.grid(row=row, column=0, pady=(5, 5), sticky="w")
-    progressbar.grid(row=row, column=1, columnspan=3, pady=(5, 5), sticky="ew")
-
-
 row_1(0)
 row_2(1)
 row_3(2)
-# row_4(3)
-
 
 root.mainloop()
