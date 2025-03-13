@@ -57,12 +57,13 @@ def convert_files():
     file_path_list = []
     InputListBox.delete(0, tk.END)
 
+
 root = tk.Tk()
 
+root.wm_iconphoto(False, tk.PhotoImage(file = 'icon.png'))
 root.resizable(False, False)
-root.title('PSV v2')
+root.title('Excel PSV Convertor')
 root.configure(padx=10, pady=10)
-
 
 BrowseButton = tk.Button(root, text='Browse', command=browse_file)
 ConvertButton = tk.Button(root, text='Convert', command=convert_files)
@@ -71,11 +72,7 @@ InputPath = tk.Label(root, text='')
 InputListBox = tk.Listbox(root, height=10, width=40)
 OutputLabel = tk.Label(root, text='Output', fg="red")
 OutputPath = tk.Label(root, text='')
-OutputListBox = tk.Listbox(root, height=10, width=40)
-
-progressbar = ttk.Progressbar()
-
-StatusLabel = tk.Label(root, text='Status: ')
+OutputListBox = tk.Listbox(root, height=10, width=40, fg="green")
 
 def row_1(row):
     InputLabel.grid(row=row, column=0, sticky="w")
