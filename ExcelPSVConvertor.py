@@ -59,6 +59,7 @@ def convert_files():
 
 root = tk.Tk()
 
+root.wm_iconphoto(False, tk.PhotoImage(file = 'icon.png'))
 root.resizable(False, False)
 root.title('Excel PSV Convertor')
 root.configure(padx=10, pady=10)
