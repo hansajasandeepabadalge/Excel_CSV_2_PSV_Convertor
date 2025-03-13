@@ -57,6 +57,7 @@ def convert_files():
     file_path_list = []
     InputListBox.delete(0, tk.END)
 
+
 root = tk.Tk()
 
 root.wm_iconphoto(False, tk.PhotoImage(file = 'icon.png'))
