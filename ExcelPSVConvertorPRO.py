@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 import csv
 import pandas as pd
-
+from tkinter import messagebox
 
 class ExcelPsvConverter:
     def __init__(self, root):
@@ -20,14 +20,29 @@ class ExcelPsvConverter:
         self.root.configure(padx=10, pady=10)
         self.root.resizable(False, False)
         
+        window_width = 500
+        window_height = 250
+        
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        
+        center_x = int((screen_width - window_width) / 2)
+        center_y = int((screen_height - window_height) / 2)
+        
+        self.root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+        
         try:
             self.root.wm_iconphoto(False, tk.PhotoImage(file='icon.png'))
         except Exception as e:
             print(f"Could not load icon: {e}")
     
     def _create_widgets(self):
-        self.browse_button = tk.Button(self.root, text='Browse', command=self.browse_file)
-        self.convert_button = tk.Button(self.root, text='Convert', command=self.convert_files)
+        self.browse_delete_frame = tk.Frame(self.root)
+        self.convert_frame = tk.Frame(self.root)
+        
+        self.browse_button = tk.Button(self.browse_delete_frame, text='Browse', command=self.browse_file)
+        self.delete_button = tk.Button(self.browse_delete_frame, text='Delete', command=self.delete_files)
+        self.convert_button = tk.Button(self.convert_frame, text='Convert', command=self.convert_files)
         
         self.input_label = tk.Label(self.root, text='Input', fg="blue")
         self.input_path = tk.Label(self.root, text='')
@@ -46,8 +61,22 @@ class ExcelPsvConverter:
         self.input_listbox.grid(row=1, column=0, columnspan=2, padx=(0, 5), pady=5, sticky="ew")
         self.output_listbox.grid(row=1, column=2, columnspan=2, padx=(5, 0), pady=5, sticky="ew")
         
-        self.browse_button.grid(row=2, column=0, columnspan=2, padx=(0, 5), pady=(5, 5), sticky="ew")
-        self.convert_button.grid(row=2, column=2, columnspan=2, padx=(5, 0), pady=(5, 5), sticky="ew")
+        self.browse_button.grid(row=0, column=0, padx=(0, 5), pady=(0, 0), sticky="ew")
+        self.delete_button.grid(row=0, column=1, padx=(5, 0), pady=(0, 0), sticky="ew")
+        
+        self.convert_button.grid(row=0, column=0, pady=(0, 0), sticky="ew")
+        
+        self.browse_delete_frame.columnconfigure(0, weight=1)
+        self.browse_delete_frame.columnconfigure(1, weight=1)
+        self.convert_frame.columnconfigure(0, weight=1)
+        
+        self.browse_delete_frame.grid(row=2, column=0, columnspan=2, pady=(5, 5), padx=(0, 5), sticky="ew")
+        self.convert_frame.grid(row=2, column=2, columnspan=2, pady=(5, 5), padx=(5, 0), sticky="ew")
+        
+        self.root.columnconfigure(0, weight=1)
+        self.root.columnconfigure(1, weight=1)
+        self.root.columnconfigure(2, weight=1)
+        self.root.columnconfigure(3, weight=1)
     
     def browse_file(self):
         self.output_listbox.delete(0, tk.END)
@@ -65,6 +94,7 @@ class ExcelPsvConverter:
             self.input_path.config(text=file_dir)
             
             self.output_folder = os.path.join(file_dir + '/Output')
+
             self.output_path.config(text=self.output_folder)
             
             self.input_listbox.delete(0, tk.END)
@@ -78,7 +108,26 @@ class ExcelPsvConverter:
             
         except Exception as e:
             print(f"An error occurred: {e}")
-    
+
+    def delete_files(self):
+        selected_indices = self.input_listbox.curselection()
+        if not selected_indices:
+            print("No files selected to delete")
+            return
+            
+        for index in sorted(selected_indices, reverse=True):
+            if index < len(self.file_path_list):
+                del self.file_path_list[index]
+                self.input_listbox.delete(index)
+        
+        if self.file_path_list:
+            if "Selected all files" not in self.input_listbox.get(0, tk.END):
+                self.input_listbox.insert(tk.END, "Selected all files")
+        else:
+            self.input_listbox.delete(0, tk.END)
+            
+        print("Files removed from selection")
+
     def convert_files(self):
         if not self.file_path_list:
             print("No files selected")
@@ -107,6 +156,8 @@ class ExcelPsvConverter:
         self.output_listbox.insert(tk.END, "Conversion completed")
         self.file_path_list = []
         self.input_listbox.delete(0, tk.END)
+
+        messagebox.showinfo("Conversion Completed", "All files have been successfully converted.")
     
     def _convert_csv_to_psv(self, input_file, output_file):
         with open(input_file, 'r', newline='') as csv_file:
@@ -120,10 +171,12 @@ class ExcelPsvConverter:
         df = pd.read_excel(input_file)
         df.to_csv(output_file, sep='|', index=False)
 
+
 def main():
     root = tk.Tk()
-    ExcelPsvConverter(root)
+    app = ExcelPsvConverter(root)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
