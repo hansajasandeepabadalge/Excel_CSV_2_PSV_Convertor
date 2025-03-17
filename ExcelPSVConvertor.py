@@ -4,6 +4,8 @@ from tkinter import filedialog
 import csv
 import pandas as pd
 from tkinter import messagebox
+from datetime import datetime
+
 
 class ExcelPsvConverter:
     def __init__(self, root):
@@ -21,7 +23,7 @@ class ExcelPsvConverter:
         self.root.resizable(False, False)
         
         window_width = 500
-        window_height = 250
+        window_height = 400
         
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -51,6 +53,8 @@ class ExcelPsvConverter:
         
         self.input_listbox = tk.Listbox(self.root, height=10, width=40)
         self.output_listbox = tk.Listbox(self.root, height=10, width=40, fg="green")
+
+        self.log = tk.Text(self.root, width=40)
         
     def _layout_widgets(self):
         self.input_label.grid(row=0, column=0, sticky="w")
@@ -72,11 +76,19 @@ class ExcelPsvConverter:
         
         self.browse_delete_frame.grid(row=2, column=0, columnspan=2, pady=(5, 5), padx=(0, 5), sticky="ew")
         self.convert_frame.grid(row=2, column=2, columnspan=2, pady=(5, 5), padx=(5, 0), sticky="ew")
+
+        self.log.grid(row=3, column=0, columnspan=4, pady=(5, 0), padx=(0, 0), sticky="nsew")
         
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
         self.root.columnconfigure(2, weight=1)
         self.root.columnconfigure(3, weight=1)
+        self.root.rowconfigure(3, weight=1)
+    
+    def log_datetime(self, message, color="black"):
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.log.tag_configure(color, foreground=color)
+        self.log.insert(tk.END, f"{current_time}: {message}\n", color)
     
     def browse_file(self):
         self.output_listbox.delete(0, tk.END)
@@ -102,9 +114,9 @@ class ExcelPsvConverter:
             
             for count, file_path in enumerate(self.file_path_list):
                 file_name = os.path.basename(file_path)
-                self.input_listbox.insert(count, file_name)
+                self.input_listbox.insert(count, " " + file_name)
                 
-            self.input_listbox.insert(tk.END, "Selected all files")
+            self.log_datetime(f"{len(file_paths)} files selected", "blue")
             
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -112,25 +124,20 @@ class ExcelPsvConverter:
     def delete_files(self):
         selected_indices = self.input_listbox.curselection()
         if not selected_indices:
-            print("No files selected to delete")
+            self.log_datetime("No files selected to delete", "red")
             return
             
         for index in sorted(selected_indices, reverse=True):
-            if index < len(self.file_path_list):
-                del self.file_path_list[index]
-                self.input_listbox.delete(index)
-        
-        if self.file_path_list:
-            if "Selected all files" not in self.input_listbox.get(0, tk.END):
-                self.input_listbox.insert(tk.END, "Selected all files")
-        else:
-            self.input_listbox.delete(0, tk.END)
-            
-        print("Files removed from selection")
+                if index < len(self.file_path_list):
+                    file_name = os.path.basename(self.file_path_list[index])
+                    del self.file_path_list[index]
+                    self.input_listbox.delete(index)
+                    self.log_datetime(f"'{file_name}' removed from selection", "red")
+
 
     def convert_files(self):
         if not self.file_path_list:
-            print("No files selected")
+            self.log_datetime("No files selected", "red")
             return
             
         os.makedirs(self.output_folder, exist_ok=True)
@@ -148,12 +155,12 @@ class ExcelPsvConverter:
                     self._convert_excel_to_psv(input_file, output_file)
                 
                 file_name = os.path.basename(output_file)
-                self.output_listbox.insert(count, file_name)
+                self.output_listbox.insert(count, " " + file_name)
                 
             except Exception as e:
-                print(f"Error during conversion: {e}")
-        
-        self.output_listbox.insert(tk.END, "Conversion completed")
+                self.log_datetime(f"Error converting '{os.path.basename(input_file)}'", "red")
+
+        self.log_datetime("Conversion completed", "green")
         self.file_path_list = []
         self.input_listbox.delete(0, tk.END)
 
