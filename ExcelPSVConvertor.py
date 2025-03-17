@@ -54,7 +54,6 @@ class ExcelPsvConverter:
         self.input_listbox = tk.Listbox(self.root, height=10, width=40)
         self.output_listbox = tk.Listbox(self.root, height=10, width=40, fg="green")
 
-        # Status bar frame
         self.status_frame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
         self.status_bar = tk.Label(self.status_frame, text="Ready", anchor=tk.W, padx=5, pady=2)
         self.status_bar.pack(fill=tk.X)
@@ -80,7 +79,6 @@ class ExcelPsvConverter:
         self.browse_delete_frame.grid(row=2, column=0, columnspan=2, pady=(5, 5), padx=(0, 5), sticky="ew")
         self.convert_frame.grid(row=2, column=2, columnspan=2, pady=(5, 5), padx=(5, 0), sticky="ew")
 
-        # Status bar at the bottom
         self.status_frame.grid(row=3, column=0, columnspan=4, pady=(5, 0), padx=(0, 0), sticky="ew")
         
         self.root.columnconfigure(0, weight=1)
