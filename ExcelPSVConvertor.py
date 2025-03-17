@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, scrolledtext
 import openpyxl
 import csv
 import pandas as pd
@@ -23,7 +23,7 @@ class ExcelPsvConverter:
         self.root.configure(padx=10, pady=10)
         self.root.resizable(False, False)
         
-        window_width = 500
+        window_width = 600
         window_height = 280
         
         screen_width = self.root.winfo_screenwidth()
@@ -52,8 +52,23 @@ class ExcelPsvConverter:
         self.output_label = tk.Label(self.root, text='Output', fg="red")
         self.output_path = tk.Label(self.root, text='')
         
-        self.input_listbox = tk.Listbox(self.root, height=10, width=40)
-        self.output_listbox = tk.Listbox(self.root, height=10, width=40, fg="green")
+        # Create input listbox with scrollbar in a frame
+        self.input_frame = tk.Frame(self.root)
+        self.input_scrollbar = tk.Scrollbar(self.input_frame, orient=tk.VERTICAL)
+        self.input_listbox = tk.Listbox(self.input_frame, height=10, width=40, 
+                                        yscrollcommand=self.input_scrollbar.set)
+        self.input_scrollbar.config(command=self.input_listbox.yview)
+        self.input_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.input_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        # Create output listbox with scrollbar in a frame
+        self.output_frame = tk.Frame(self.root)
+        self.output_scrollbar = tk.Scrollbar(self.output_frame, orient=tk.VERTICAL)
+        self.output_listbox = tk.Listbox(self.output_frame, height=10, width=40, fg="green", 
+                                         yscrollcommand=self.output_scrollbar.set)
+        self.output_scrollbar.config(command=self.output_listbox.yview)
+        self.output_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.output_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.status_frame = tk.Frame(self.root, relief=tk.SUNKEN, bd=1)
         self.status_bar = tk.Label(self.status_frame, text="Ready", anchor=tk.W, padx=5, pady=2)
@@ -65,8 +80,9 @@ class ExcelPsvConverter:
         self.output_label.grid(row=0, column=2, padx=(5, 0), sticky="w")
         self.output_path.grid(row=0, column=3, padx=(0, 0), sticky="e")
         
-        self.input_listbox.grid(row=1, column=0, columnspan=2, padx=(0, 5), pady=5, sticky="ew")
-        self.output_listbox.grid(row=1, column=2, columnspan=2, padx=(5, 0), pady=5, sticky="ew")
+        # Grid the frames containing listboxes instead of the listboxes directly
+        self.input_frame.grid(row=1, column=0, columnspan=2, padx=(0, 5), pady=5, sticky="ew")
+        self.output_frame.grid(row=1, column=2, columnspan=2, padx=(5, 0), pady=5, sticky="ew")
         
         self.browse_button.grid(row=0, column=0, padx=(0, 5), pady=(0, 0), sticky="ew")
         self.delete_button.grid(row=0, column=1, padx=(5, 0), pady=(0, 0), sticky="ew")
