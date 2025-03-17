@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+import openpyxl
 import csv
 import pandas as pd
 from tkinter import messagebox
@@ -170,16 +171,36 @@ class ExcelPsvConverter:
         messagebox.showinfo("Conversion Completed", "All files have been successfully converted.")
     
     def _convert_csv_to_psv(self, input_file, output_file):
-        with open(input_file, 'r', newline='') as csv_file:
+        with open(input_file, 'r', newline='', encoding='utf-8') as csv_file:
             csv_reader = csv.reader(csv_file)
-            with open(output_file, 'w', newline='') as psv_file:
+            with open(output_file, 'w', newline='', encoding='utf-8') as psv_file:
                 psv_writer = csv.writer(psv_file, delimiter='|')
                 for row in csv_reader:
                     psv_writer.writerow(row)
     
     def _convert_excel_to_psv(self, input_file, output_file):
-        df = pd.read_excel(input_file)
-        df.to_csv(output_file, sep='|', index=False)
+        try:
+            workbook = openpyxl.load_workbook(input_file, data_only=True)
+            
+            sheet = workbook.active
+            
+            with open(output_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f, delimiter='|', quoting=csv.QUOTE_MINIMAL)
+                
+                for row in sheet.rows:
+                    row_values = []
+                    for cell in row:
+                        if cell.value is None:
+                            row_values.append('')
+                        else:
+                            row_values.append(str(cell.value))
+                    writer.writerow(row_values)
+            
+            workbook.close()
+            return True
+        except Exception as e:
+            self.update_status(f"Excel conversion error: {str(e)}", "red")
+            return False
 
 
 def main():
