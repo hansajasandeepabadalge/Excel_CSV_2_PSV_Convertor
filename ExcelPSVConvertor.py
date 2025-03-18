@@ -35,7 +35,7 @@ class ExcelPsvConverter:
         self.root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
         
         try:
-            self.root.wm_iconphoto(False, tk.PhotoImage(file='icon.png'))
+            self.root.wm_iconphoto(False, tk.PhotoImage(file='assets/icon.png'))
         except Exception as e:
             print(f"Could not load icon: {e}")
     
@@ -52,7 +52,6 @@ class ExcelPsvConverter:
         self.output_label = tk.Label(self.root, text='Output', fg="red")
         self.output_path = tk.Label(self.root, text='')
         
-        # Create input listbox with scrollbar in a frame
         self.input_frame = tk.Frame(self.root)
         self.input_scrollbar = tk.Scrollbar(self.input_frame, orient=tk.VERTICAL)
         self.input_listbox = tk.Listbox(self.input_frame, height=10, width=40, 
@@ -61,7 +60,6 @@ class ExcelPsvConverter:
         self.input_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.input_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
-        # Create output listbox with scrollbar in a frame
         self.output_frame = tk.Frame(self.root)
         self.output_scrollbar = tk.Scrollbar(self.output_frame, orient=tk.VERTICAL)
         self.output_listbox = tk.Listbox(self.output_frame, height=10, width=40, fg="green", 
@@ -80,7 +78,6 @@ class ExcelPsvConverter:
         self.output_label.grid(row=0, column=2, padx=(5, 0), sticky="w")
         self.output_path.grid(row=0, column=3, padx=(0, 0), sticky="e")
         
-        # Grid the frames containing listboxes instead of the listboxes directly
         self.input_frame.grid(row=1, column=0, columnspan=2, padx=(0, 5), pady=5, sticky="ew")
         self.output_frame.grid(row=1, column=2, columnspan=2, padx=(5, 0), pady=5, sticky="ew")
         
