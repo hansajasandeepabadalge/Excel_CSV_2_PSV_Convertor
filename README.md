@@ -3,7 +3,7 @@
 A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pipe-separated values (PSV) format.
 
 <p align="center">
-  <img src="./assets/icon.png" alt="Excel PSV Converter Logo" width="300">
+  <img src="./assets/icon.webp" alt="Excel PSV Converter Logo" width="300">
 </p>
 
 ## Features
@@ -18,15 +18,15 @@ A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pip
 
 ### Main Application Window
 <p align="center">
-    <img src="./assets/screenshots/main_window.png" alt="Main Application Window" width="500">
+    <img src="./assets/screenshots/main_window.webp" alt="Main Application Window" width="500">
 </p>
 ### File Selection
 <p align="center">
-    <img src="./assets/screenshots/file_selection.png" alt="File Selection" width="500">
+    <img src="./assets/screenshots/file_selection.webp" alt="File Selection" width="500">
 </p>
 ### Conversion Complete
 <p align="center">
-    <img src="./assets/screenshots/conversion_complete.png" alt="Conversion Complete" width="500">
+    <img src="./assets/screenshots/conversion_complete.webp" alt="Conversion Complete" width="500">
 </p>
 ## Installation
 
