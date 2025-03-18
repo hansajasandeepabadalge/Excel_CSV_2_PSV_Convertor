@@ -16,15 +16,15 @@ A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pip
 
 ## Screenshots
 
-### Main Application Window
+## Main Application Window
 <p align="center">
     <img src="./assets/screenshots/main_window.webp" alt="Main Application Window" width="500">
 </p>
-### File Selection
+## File Selection
 <p align="center">
     <img src="./assets/screenshots/file_selection.webp" alt="File Selection" width="500">
 </p>
-### Conversion Complete
+## Conversion Complete
 <p align="center">
     <img src="./assets/screenshots/conversion_complete.webp" alt="Conversion Complete" width="500">
 </p>
