@@ -1,6 +1,8 @@
 # Excel PSV Converter
 
-![Excel PSV Converter Logo](./assets/icon.png)
+<p align="center">
+  <img src="./assets/icon.png" alt="Excel PSV Converter Logo" width="120">
+</p>
 
 A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pipe-separated values (PSV) format.
 
@@ -15,13 +17,13 @@ A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pip
 ## Screenshots
 
 ### Main Application Window
-![Main Application Window](./assets/screenshots/main_window.png)
+<img src="./assets/screenshots/main_window.png" alt="Main Application Window" width="500">
 
 ### File Selection
-![File Selection](./assets/screenshots/file_selection.png)
+<img src="./assets/screenshots/file_selection.png" alt="File Selection" width="500">
 
 ### Conversion Complete
-![Conversion Complete](./assets/screenshots/conversion_complete.png)
+<img src="./assets/screenshots/conversion_complete.png" alt="Conversion Complete" width="500">
 
 ## Installation
 
@@ -67,11 +69,3 @@ The application is structured with a class-based approach:
 - GUI components are created in the `_create_widgets` method
 - Layout is handled in the `_layout_widgets` method
 - File conversion logic is in the `_convert_csv_to_psv` and `_convert_excel_to_psv` methods
-
-## License
-
-[MIT License](LICENSE)
-
-## Author
-
-[Your Name]
