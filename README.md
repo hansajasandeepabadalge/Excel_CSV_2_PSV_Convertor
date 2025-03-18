@@ -1,48 +1,74 @@
-# CSV/Excel to PSV Converter
+# Excel PSV Converter
 
-## Description
-This is a simple GUI-based application built with Python and Tkinter that allows users to convert CSV and Excel files into pipe-separated value (PSV) files. The converted files are saved in the `Output` directory within the same directory as the selected files.
+A simple desktop application to convert Excel (.xlsx, .xls) and CSV files to pipe-separated values (PSV) format.
+
+<p align="center">
+  <img src="./assets/icon.png" alt="Excel PSV Converter Logo" width="300">
+</p>
 
 ## Features
-- Supports both `.csv` and `.xlsx/.xls` file formats.
-- Converts data to PSV format (pipe `|` separated values).
-- Automatically creates an `Output` folder in the directory of the selected files.
-- Provides a simple GUI for file selection and conversion.
 
-## Prerequisites
-Ensure you have Python installed on your system. You also need the following Python packages:
+- Convert multiple Excel and CSV files to PSV format in one operation
+- Simple and intuitive user interface
+- Batch processing capability
+- Automatic output folder creation
+- Status updates for each operation
 
-- `tkinter` (Built-in with Python)
-- `pandas`
+## Screenshots
 
-If `pandas` is not installed, you can install it using:
-```sh
-pip install pandas
-```
-
+### Main Application Window
+<p align="center">
+    <img src="./assets/screenshots/main_window.png" alt="Main Application Window" width="500">
+</p>
+### File Selection
+<p align="center">
+    <img src="./assets/screenshots/file_selection.png" alt="File Selection" width="500">
+</p>
+### Conversion Complete
+<p align="center">
+    <img src="./assets/screenshots/conversion_complete.png" alt="Conversion Complete" width="500">
+</p>
 ## Installation
-1. Clone this repository or download the script.
-2. Ensure you have Python installed (version 3.x recommended).
-3. Install the required dependencies.
+
+1. Ensure you have Python 3.6+ installed on your system.
+2. Install the required packages:
+   ```
+   pip install openpyxl pandas tkinter
+   ```
+3. Download the application files or clone the repository.
+4. Run the application:
+   ```
+   python ExcelPSVConvertor.py
+   ```
 
 ## Usage
-1. Run the script:
-   ```sh
-   python psv.py
-   ```
-2. Click the **Browse** button to select CSV or Excel files.
-3. Click **Convert** to convert the files into PSV format.
-4. The converted files will be saved in the `Output` folder within the same directory as the selected files.
 
-## Error Handling
-- If no file is selected, an error message will be displayed.
-- If an invalid file format is chosen, the program will notify the user.
-- Errors during conversion will be displayed in the status label.
+1. **Launch the application** by running `ExcelPSVConvertor.py`.
+2. **Select input files** by clicking the "Browse" button and selecting one or more Excel or CSV files.
+3. **Review the selection** in the left panel. You can remove files from the selection using the "Delete" button after selecting them in the list.
+4. **Convert files** by clicking the "Convert" button. Files will be converted and saved to an "Output" folder in the same directory as the input files.
+5. **View results** in the right panel showing all successfully converted files.
 
-## Future Enhancements
-- Support for additional file formats.
-- Drag-and-drop functionality for file selection.
-- Option to choose output directory.
+## How It Works
 
-## License
-This project is licensed under the MIT License.
+The converter performs the following operations:
+- Excel files (.xlsx, .xls) are read using the openpyxl library
+- CSV files are read using Python's built-in csv module
+- All data is written to new files using the pipe (|) character as the delimiter
+- Output files retain the same name as input files but with a .csv extension
+
+## Requirements
+
+- Python 3.6+
+- openpyxl (for Excel file processing)
+- pandas (for data manipulation)
+- tkinter (for the GUI components)
+
+## Development
+
+The application is structured with a class-based approach:
+
+- `ExcelPsvConverter` class handles all application functionality
+- GUI components are created in the `_create_widgets` method
+- Layout is handled in the `_layout_widgets` method
+- File conversion logic is in the `_convert_csv_to_psv` and `_convert_excel_to_psv` methods
