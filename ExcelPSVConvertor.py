@@ -35,7 +35,7 @@ class ExcelPsvConverter:
         self.root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
         
         try:
-            self.root.wm_iconphoto(False, tk.PhotoImage(file='icon.png'))
+            self.root.wm_iconphoto(False, tk.PhotoImage(file='assets/icon.png'))
         except Exception as e:
             print(f"Could not load icon: {e}")
     
